@@ -1,23 +1,35 @@
-class Usermanager {
-  bool authenticateUser(String username, String password) {
-    return true;
-  }
+// Good Approach is Seperate responsibilities into different classes.
 
-  void updateUserProfile(String username, Map<String, dynamic> profile) {
-    print('User Profile updated for $username');
-  }
-}
-// The same class is handling two different uncommon responsibility. This is the Wrong Approach.
-// The solution is
+class User {
+  final String name;
+  final String email;
 
-class AuthManager {
-  bool authenticateUser(String username, String password) {
-    return true;
-  }
+  User(this.name, this.email);
 }
 
-class Profilemanager {
-  void updateUserProfile(String username, Map<String, dynamic> profile) {
-    print('User Profile updated for $username');
+class UserValidator {
+  bool isValidEmail(String email) {
+    return email.contains('@') && email.length > 3;
+  }
+
+  bool isValidName(String name) {
+    return name.isNotEmpty && name.length >= 3;
+  }
+}
+
+class UserRepository {
+  void save(User user) {
+    print('Saving user ${user.name} to database...');
+  }
+
+  User? findByEmail(String email) {
+    //Database logic here.
+    return null;
+  }
+}
+
+class EmailService {
+  void sendWelcomeEmail(User user) {
+    print('Sending welcome email to ${user.email}');
   }
 }

@@ -1,76 +1,53 @@
-// class Shape {
-//   String type;
-
-//   Shape(this.type);
-// }
-
-// class AreaCalculator {
-//   double calculateArea(Shape shape) {
-//     if (shape.type == 'circle') {
-//       return 3.14 * 3.14;
-//     } else if (shape.type == 'rectangle') {
-//       return 4 * 5;
-//     } else if (shape.type == 'Square') {
-//       return 4 * 4;
-//     }
-//     return 0;
-//   }
-// }
-
-abstract interface class Shape {
+// the good approach is to allow extension without modification. Hence use Abstraction.
+abstract class Shape {
   double calculateArea();
 }
 
+class Rectangle implements Shape {
+  final double width;
+  final double height;
+
+  Rectangle(this.width, this.height);
+
+  @override
+  double calculateArea() {
+    return width * height;
+  }
+}
+
 class Circle implements Shape {
-  double radius;
+  final double radius;
+
   Circle(this.radius);
+
   @override
   double calculateArea() {
     return 3.14 * radius * radius;
   }
 }
 
-class Rectangle implements Shape {
-  double length;
-  double breadth;
+class Triangle implements Shape {
+  final double base;
+  final double height;
 
-  Rectangle(this.length, this.breadth);
-  @override
-  double calculateArea() {
-    return length * breadth;
-  }
-}
-
-class Square implements Shape {
-  double side;
-  Square(this.side);
+  Triangle(this.base, this.height);
 
   @override
   double calculateArea() {
-    return side * side;
+    return 0.5 * base * height;
   }
 }
 
 class AreaCalculator {
-  double calculateArea(Shape shape) {
-    return shape.calculateArea();
+  double calculateTotalArea(List<Shape> shapes) {
+    return shapes.fold(0, (sum, shape) => sum + shape.calculateArea());
   }
 }
 
-// void main() {
-//   final circle = Circle(5.0);
-//   final rectangle = Rectangle(4.0, 6.0);
-
-//   final calculator = AreaCalculator();
-
-//   print('Circle area: ${calculator.calculateArea(circle)}');
-//   print('Rectangle area: ${calculator.calculateArea(rectangle)}');
-// }
 void main() {
-  final Shape circle = Circle(5.0);
-  final Shape rectangle = Rectangle(4.0, 5.0);
+  List<Shape> shapes = [Rectangle(5, 15), Circle(3), Triangle(4, 6)];
+  AreaCalculator calculator = AreaCalculator();
+  double totalArea = calculator.calculateTotalArea(shapes);
 
-  final calculator = AreaCalculator();
-
-  print('Circle Area: ${calculator.calculateArea(circle)}');
+  print('Total Area: $totalArea');
 }
