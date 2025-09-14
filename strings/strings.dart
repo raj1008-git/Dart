@@ -1,5 +1,13 @@
 void main() {
-  stringPlayground();
+  // stringPlayground();
+  List fruits = ['Strawberry', 'Coconut', 'Orange', 'Mango', 'Apple'];
+  StringBuffer buffer = StringBuffer();
+
+  for (String fruit in fruits) {
+    buffer.write(fruit);
+    buffer.write(' ');
+  }
+  print(buffer.toString());
 }
 
 void stringPlayground() {
