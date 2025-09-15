@@ -2,51 +2,46 @@
 // High level Modules should not depend on Low Level modules.
 // Both should depend on abstractions.
 
-// Bad Approach
-// class EmailSenderBad {
-//   void sendEmail(String message) {
-//     print('Sending Email: $message');
-//   }
-// }
-
-// class NotificationServiceBad {
-//   final EmailSenderBad _emailSender = EmailSenderBad();
-
-//   void notify(String message) {
-//     _emailSender.sendEmail(message);
-//   }
-// }
-
-abstract class NotificationSender {
-  void send(String message);
+// Low level Module
+abstract interface class Bulb {
+  void turnOn();
+  void turnOff();
 }
 
-class EmailSender implements NotificationSender {
+class IncandescentBulb implements Bulb {
   @override
-  void send(String message) {
-    print('Semding Email: $message');
+  void turnOn() {
+    print('Incandescent Bult turned On');
+  }
+
+  @override
+  void turnOff() {
+    print('Incandescent Bulb turned Off');
   }
 }
 
-class SMSSender implements NotificationSender {
+class LEDBulb implements Bulb {
   @override
-  void send(String message) {
-    print('Sending SMS: $message');
+  void turnOn() {
+    print('Led Bulb turned On');
+  }
+
+  @override
+  void turnOff() {
+    print('Led Bulb turned Off');
   }
 }
 
-class PushNotificationSender implements NotificationSender {
-  @override
-  void send(String message) {
-    print('Sending push Notification: $message');
+// High Level Module
+class Room {
+  Bulb bulb;
+  Room(this.bulb);
+
+  void switchLightOn() {
+    bulb.turnOn();
   }
-}
 
-class NotificationService {
-  final NotificationSender _sender;
-  NotificationService(this._sender);
-
-  void notify(String message) {
-    _sender.send(message);
+  void switchLightOff() {
+    bulb.turnOff();
   }
 }
