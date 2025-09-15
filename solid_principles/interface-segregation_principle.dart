@@ -1,51 +1,37 @@
-// Interface Segregation Principle
-// Classes should not be forced to implement interfaces they dont use.
+// Interface Segregation Principle.
 
-// Good Segregated interfaces.
-abstract class Worker {
+abstract interface class Worker {
   void work();
 }
 
-abstract class Eater {
+abstract interface class Eater {
   void eat();
 }
 
-abstract class Sleeper {
-  void sleep();
+class Developer implements Worker {
+  @override
+  void work() {
+    print('Developer is working');
+  }
 }
 
-abstract class MeetingAttendee {
-  void attendMeeting();
+class Waiter implements Worker, Eater {
+  @override
+  void work() {
+    print('Waiter is Working');
+  }
+
+  @override
+  void eat() {
+    print('Waiter is Eating');
+  }
 }
 
-abstract class Coder {
-  void writeCode();
-}
+void main() {
+  var developer = Developer();
+  developer.work();
 
-class Developer implements Worker, Sleeper, Eater, MeetingAttendee, Coder {
-  @override
-  void work() => print("Writing code");
+  var waiter = Waiter();
 
-  @override
-  void eat() => print("Eating Lunch");
-
-  @override
-  void sleep() => print("Sleeping");
-
-  @override
-  void attendMeeting() => print('in Development meeting');
-
-  @override
-  void writeCode() => print('Coding new features.');
-}
-
-class Cleaner implements Worker, Eater, Sleeper {
-  @override
-  void work() => print('Cleaning office');
-
-  @override
-  void eat() => print('Eating Lunch');
-
-  @override
-  void sleep() => print('Sleeping');
+  waiter.eat();
 }
