@@ -1,41 +1,25 @@
-// abstract class Animal {
-//   void makeSound();
-// }
+// Properly following the liskov principle.
 
-// class Lion extends Animal {
-//   @override
-//   void makeSound() {
-//     print("Roar");
-//   }
-// }
-
-// void makeAnimalSound(Animal animal) {
-//   animal.makeSound();
-// }
-
-// void main() {
-//   Animal animal = Lion();
-//   makeAnimalSound(animal);
-
-//   Lion lion = Lion();
-//   makeAnimalSound(lion);
-// }
-
-class Animal {
-  void run() {
-    print("The Animal is running.");
-  }
+abstract class Bird {
+  void eat();
+  void sleep();
 }
 
-class Lion extends Animal {
+abstract class FlyingBird extends Bird {
+  void fly();
+}
+
+abstract class SwimmingBird extends Bird {
+  void swim();
+}
+
+class Sparrow extends FlyingBird {
   @override
-  void run() {
-    super.run();
-    print('The lion is roaring while running. ');
-  }
-}
+  void eat() => print('Sparrow eating seeds');
 
-void main() {
-  Animal animal = Lion();
-  animal.run();
+  @override
+  void sleep() => print('Sparrow sleeping in Nest');
+
+  @override
+  void fly() => print('Sparrow flying high!');
 }
