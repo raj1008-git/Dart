@@ -42,16 +42,51 @@
 //   waiterServes(eveningGreeting);
 // }
 
-Function createGreeter(String name) {
-  return () {
-    print('Hello, $name!');
-  };
-}
+// Function createGreeter(String name) {
+//   return () {
+//     print('Hello, $name!');
+//   };
+// }
+
+// void main() {
+//   Function greetJohn = createGreeter('John');
+//   Function greetSarah = createGreeter('Sarah');
+
+//   greetJohn();
+//   greetSarah();
+// }
+
+// Event Handelling with Memory
+// Function createCounter() {
+//   int count = 0;
+//   return () {
+//     count++;
+//     print('Count is now: $count');
+//   };
+// }
+
+// void main() {
+//   Function counter1 = createCounter();
+//   Function counter2 = createCounter();
+
+//   counter1();
+//   counter2();
+
+//   counter1();
+//   counter2();
+// }
 
 void main() {
-  Function greetJohn = createGreeter('John');
-  Function greetSarah = createGreeter('Sarah');
+  List<String> users = ['Alice', 'Bob', 'Charlie'];
 
-  greetJohn();
-  greetSarah();
+  users.forEach((user) => print('Processing $user'));
+
+  // Specify the type: a function that takes a String and returns void
+  void Function(String) createUserProcessor(String action) {
+    return (String user) => print('$action for user : $user');
+  }
+
+  // emailSender is now the correct type
+  void Function(String) emailSender = createUserProcessor('sending email');
+  users.forEach(emailSender);
 }
