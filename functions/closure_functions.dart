@@ -76,17 +76,30 @@
 //   counter2();
 // }
 
-void main() {
-  List<String> users = ['Alice', 'Bob', 'Charlie'];
+// void main() {
+//   List<String> users = ['Alice', 'Bob', 'Charlie'];
 
-  users.forEach((user) => print('Processing $user'));
+//   users.forEach((user) => print('Processing $user'));
 
-  // Specify the type: a function that takes a String and returns void
-  void Function(String) createUserProcessor(String action) {
-    return (String user) => print('$action for user : $user');
-  }
+//   // Specify the type: a function that takes a String and returns void
+//   void Function(String) createUserProcessor(String action) {
+//     return (String user) => print('$action for user : $user');
+//   }
 
-  // emailSender is now the correct type
-  void Function(String) emailSender = createUserProcessor('sending email');
-  users.forEach(emailSender);
+//   // emailSender is now the correct type
+//   void Function(String) emailSender = createUserProcessor('sending email');
+//   users.forEach(emailSender);
+// }
+
+String processData(String data) {
+  return data.toUpperCase();
 }
+
+String Function(String) processor = (String data) {
+  return data.toUpperCase();
+};
+
+String Function(String) shortProcessor = (String data) => data.toLowerCase();
+
+List<String> names = ['john', 'Jane'];
+List<String> upperNames = names.map((name) => name.toUpperCase()).toList();
