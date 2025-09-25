@@ -1,35 +1,33 @@
-// Good Approach is Seperate responsibilities into different classes.
-
 class User {
-  final String name;
-  final String email;
+  String name;
+  String email;
+  String password;
 
-  User(this.name, this.email);
-}
+  User({required this.name, required this.email, required this.password});
 
-class UserValidator {
-  bool isValidEmail(String email) {
-    return email.contains('@') && email.length > 3;
+  bool validateEmail() {
+    return email.contains('@') && email.contains('.');
   }
 
-  bool isValidName(String name) {
-    return name.isNotEmpty && name.length >= 3;
-  }
-}
-
-class UserRepository {
-  void save(User user) {
-    print('Saving user ${user.name} to database...');
+  bool validatePassword() {
+    return password.length >= 8;
   }
 
-  User? findByEmail(String email) {
-    //Database logic here.
+  Future<void> saveToDatabase() async {
+    print('Connecting to Database');
+    print('Saving user: $name, $email');
+  }
+
+  Future<User?> loadFromDatabase(String email) async {
+    print('Loading user with email');
     return null;
   }
-}
 
-class EmailService {
-  void sendWelcomeEmail(User user) {
-    print('Sending welcome email to ${user.email}');
+  Future<void> sendWelcomeEmail() async {
+    print('sending Welcome email, to $email');
+  }
+
+  String encryptPassword() {
+    return 'encrypted $password';
   }
 }
