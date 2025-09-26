@@ -1,53 +1,81 @@
-// the good approach is to allow extension without modification. Hence use Abstraction.
-abstract class Shape {
-  double calculateArea();
+class Order {
+  final double amount;
+  final DiscountStrategy? discountStrategy;
+
+  Order({required this.amount, this.discountStrategy});
 }
 
-class Rectangle implements Shape {
-  final double width;
-  final double height;
+// Abstraction: The contract for any discount calculation.
+abstract class DiscountStrategy {
+  double calculateDiscount(double amount);
+  String get discountName;
+}
 
-  Rectangle(this.width, this.height);
+// Existing Implementations, Closed for modifications.
+class StudentDiscount implements DiscountStrategy {
+  @override
+  double calculateDiscount(double amount) {
+    return amount * 0.10;
+  }
 
   @override
-  double calculateArea() {
-    return width * height;
-  }
+  String get discountName => 'Student Discount';
 }
 
-class Circle implements Shape {
-  final double radius;
-
-  Circle(this.radius);
+class EmployeeDiscount implements DiscountStrategy {
+  @override
+  double calculateDiscount(double amount) {
+    return amount * 0.20;
+  }
 
   @override
-  double calculateArea() {
-    return 3.14 * radius * radius;
-  }
+  String get discountName => 'Employee Discount';
 }
 
-class Triangle implements Shape {
-  final double base;
-  final double height;
-
-  Triangle(this.base, this.height);
+// new Requirement: Add VIP and Military Disounts.
+// Just add new classes- no modifications to existing code.
+class MilitaryDiscount implements DiscountStrategy {
+  @override
+  double calculateDiscount(double amount) {
+    return amount * 0.24;
+  }
 
   @override
-  double calculateArea() {
-    return 0.5 * base * height;
-  }
+  String get discountName => 'Military Discount';
 }
 
-class AreaCalculator {
-  double calculateTotalArea(List<Shape> shapes) {
-    return shapes.fold(0, (sum, shape) => sum + shape.calculateArea());
+// Even more complex discounts easy to add.
+class SeasonalDiscount implements DiscountStrategy {
+  final double percentage;
+  final String season;
+
+  SeasonalDiscount({required this.percentage, required this.season});
+  @override
+  double calculateDiscount(double amount) {
+    return amount * percentage;
   }
+
+  @override
+  String get discountName => '$season Seasonal Discount';
 }
 
-void main() {
-  List<Shape> shapes = [Rectangle(5, 15), Circle(3), Triangle(4, 6)];
-  AreaCalculator calculator = AreaCalculator();
-  double totalArea = calculator.calculateTotalArea(shapes);
+// Calculator: This class is closed for modifications.
+class DiscountCalculator {
+  double calculateDiscount(Order order) {
+    if (order.discountStrategy == null) {
+      return 0;
+    }
+    return order.discountStrategy!.calculateDiscount(order.amount);
+  }
 
-  print('Total Area: $totalArea');
+  double getFinalAmount(Order order) {
+    return order.amount - calculateDiscount(order);
+  }
+
+  String getDiscountInfo(Order order) {
+    if (order.discountStrategy == null) {
+      return 'No Discount Applied';
+    }
+    return '${order.discountStrategy!.discountName} apploed';
+  }
 }
