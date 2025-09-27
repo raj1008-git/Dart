@@ -1,37 +1,35 @@
-// Interface Segregation Principle.
+// No client should be forced to depend on methods it doesnot use.
+// One Massive Interface forces classes to implement methods they don't need.
 
-abstract interface class Worker {
-  void work();
+abstract class Worker {
+  void writeCode();
+  void attendMeetings();
+  void useComputer();
+
+  void operateMachinery();
+  void assembleProducts();
+  void performQualityControl();
 }
 
-abstract interface class Eater {
-  void eat();
-}
-
-class Developer implements Worker {
+class SoftwareDeveloper implements Worker {
   @override
-  void work() {
-    print('Developer is working');
-  }
-}
-
-class Waiter implements Worker, Eater {
-  @override
-  void work() {
-    print('Waiter is Working');
+  void writeCode() {
+    print('Writing Clean Maintainable code.');
   }
 
   @override
-  void eat() {
-    print('Waiter is Eating');
+  void attendMeetings() {
+    print('Participating in Sprint planning and standups.');
   }
-}
 
-void main() {
-  var developer = Developer();
-  developer.work();
+  @override
+  void useComputers() {
+    print('Using computer for development work.');
+  }
 
-  var waiter = Waiter();
-
-  waiter.eat();
+  // Forced to implement irrelevant methods.
+  @override
+  void operateMachinery() {
+    throw UnimplementedError('Software Developer doesnot operate Machinery.');
+  }
 }
