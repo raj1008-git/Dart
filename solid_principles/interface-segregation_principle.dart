@@ -1,35 +1,23 @@
-// No client should be forced to depend on methods it doesnot use.
-// One Massive Interface forces classes to implement methods they don't need.
+// Interface Segregation principle.
+// Small , Focused interfaces.
 
-abstract class Worker {
+// Interface for workers who code.
+abstract class Coder {
   void writeCode();
-  void attendMeetings();
-  void useComputer();
-
-  void operateMachinery();
-  void assembleProducts();
-  void performQualityControl();
+  void debugCode();
+  void reviewCode();
 }
 
-class SoftwareDeveloper implements Worker {
-  @override
-  void writeCode() {
-    print('Writing Clean Maintainable code.');
-  }
+// Interface for Workers who attend meetings.
+abstract class MeetingParticipant {
+  void attendMeetings();
+  void presentIdeas();
+  void takeNotes();
+}
 
-  @override
-  void attendMeetings() {
-    print('Participating in Sprint planning and standups.');
-  }
-
-  @override
-  void useComputers() {
-    print('Using computer for development work.');
-  }
-
-  // Forced to implement irrelevant methods.
-  @override
-  void operateMachinery() {
-    throw UnimplementedError('Software Developer doesnot operate Machinery.');
-  }
+// Interface for Workers who use computers.
+abstract class ComputerUser {
+  void useComputer();
+  void manageFiles();
+  void sendEmails();
 }

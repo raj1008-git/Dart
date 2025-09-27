@@ -1,47 +1,69 @@
-// Depencency Inversion Principle
-// High level Modules should not depend on Low Level modules.
-// Both should depend on abstractions.
+// Dependency Inversion Principle. //
 
-// Low level Module
-abstract interface class Bulb {
-  void turnOn();
-  void turnOff();
+abstract class MusicApp {
+  void volumeUp();
+  void volumeDown();
+  void play();
+  void pause();
 }
 
-class IncandescentBulb implements Bulb {
+// Phone only knows about the Standard and not the Specific Apps.
+class Phone {
+  MusicApp? currentMusicApp;
+
+  void openApp(MusicApp app) {
+    currentMusicApp = app;
+    print('App Opened');
+  }
+
+  void pressVolumeUp() {
+    print('Volume Up Button Pressed');
+    if (currentMusicApp != null) {
+      currentMusicApp!.volumeUp();
+    }
+  }
+
+  void pressPlay() {
+    print('Play Button Pressed');
+    if (currentMusicApp != null) {
+      currentMusicApp!.play();
+    }
+  }
+}
+
+class SpotifyApp implements MusicApp {
+  int volume = 50;
+  bool isPlaying = false;
+
   @override
-  void turnOn() {
-    print('Incandescent Bult turned On');
+  void volumeUp() {
+    volume += 50;
+    print('Spotify Volume: $volume');
   }
 
   @override
-  void turnOff() {
-    print('Incandescent Bulb turned Off');
+  void pause() {
+    isPlaying = false;
+  }
+
+  @override
+  void play() {
+    isPlaying = true;
+  }
+
+  @override
+  void volumeDown() {
+    volume -= 10;
   }
 }
 
-class LEDBulb implements Bulb {
-  @override
-  void turnOn() {
-    print('Led Bulb turned On');
-  }
+void demonstratePhone() {
+  final phone = Phone();
 
-  @override
-  void turnOff() {
-    print('Led Bulb turned Off');
-  }
+  phone.openApp(SpotifyApp());
+  phone.pressVolumeUp();
+  phone.pressPlay();
 }
 
-// High Level Module
-class Room {
-  Bulb bulb;
-  Room(this.bulb);
 
-  void switchLightOn() {
-    bulb.turnOn();
-  }
-
-  void switchLightOff() {
-    bulb.turnOff();
-  }
-}
+// Phone -> Interface -< Spotify. Inversion (loo at arrows)
