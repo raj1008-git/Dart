@@ -64,4 +64,28 @@ void demonstrateMapMastery() {
   for (int score in scores.values) {
     print('Scores: $score');
   }
+
+  // Transforming  Maps
+  Map<String, int> doubledScores = scores.map(
+    (name, score) => MapEntry(name, score * 2),
+  );
+  print('Doubled scores: $doubledScores');
+
+  // Filtering Map Entries.
+  Map<String, int> highScores = Map.fromEntries(
+    scores.entries.where((entry) => entry.value > 90),
+  );
+
+  Map<String, String> users = {
+    'user1': 'Alice',
+    'user2': 'Bob',
+    'user3': 'Charlie',
+  };
+  // Remove by key
+  users.remove('user2');
+
+  // Remove if condition is met.
+  users.removeWhere((key, value) => value.startsWith('c'));
+  users.clear();
+  print('After clear: $users');
 }
