@@ -88,4 +88,18 @@ void demonstrateMapMastery() {
   users.removeWhere((key, value) => value.startsWith('c'));
   users.clear();
   print('After clear: $users');
+
+  // Nested Maps
+  Map<String, Map<String, dynamic>> students = {
+    'S001': {'name': 'John', 'age': 20, 'grade': 'A'},
+    'S002': {'name': 'Sarah', 'age': 21, 'grade': 'B'},
+  };
+
+  // Accessing the nested data.
+  String johnName = students['S001']!['name'];
+  print('Student S001 name:$johnName');
+
+  //Modifying the nested data
+  students['S001']!['grade'] = 'A+';
+  print('Updated Student: ${students['S001']}');
 }
