@@ -1,11 +1,23 @@
 void setPlayground() {
-  final Set<String> ministers = {'Justin', 'Sthepen', 'jean'};
-  ministers.addAll({'John', 'Joe', 'Justin'});
+  final Set<String> ministers = {
+    'Justin',
+    'Stephen',
+    'Paul',
+    'Jean',
+    'Kim',
+    'Brian',
+  };
 
-  final isJustinAminister = ministers.contains('Justin');
-  print(isJustinAminister);
+  ministers.addAll({'John', 'Pierre', 'Joe', 'Pierre'});
+
+  final isJustinMinister = ministers.contains('Justin');
+  print(isJustinMinister);
 
   for (String primeMinister in ministers) {
-    print('$primeMinister is a PrimeMinister');
+    print('$primeMinister is a Prime Minister.');
   }
+}
+
+void main() {
+  setPlayground();
 }
