@@ -1,36 +1,21 @@
-// Complex Transformations.
-class Product {
-  final String name;
-  final double price;
-  final bool inStock;
-
-  Product(this.name, this.price, this.inStock);
-}
-
-class ProductDisplay {
-  final String displayName;
-  final String priceTag;
-  final String availaility;
-
-  ProductDisplay(this.displayName, this.priceTag, this.availaility);
-  @override
-  String toString() => '$displayName -$priceTag ($availaility)';
-}
-
+// Multiple Filters.
 void main() {
-  var products = [
-    Product('Laptop', 899.99, true),
-    Product('Mouse', 25.50, true),
-  ];
+  var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  // Transform Products into display objects.
-  var displayProducts = products.map((product) {
-    return ProductDisplay(
-      product.name,
-      'E${product.price.toStringAsFixed(2)}',
-      product.inStock ? 'Available' : 'Out of Stock',
-    );
-  }).toList();
+  // Filter Even Numbers.
+  var evens = numbers.where((n) => n % 2 == 0).toList();
+  print('Evens: $evens');
 
-  displayProducts.forEach(print);
+  var greaterThanFive = numbers.where((n) => n > 5).toList();
+  print('Greater than 5: $greaterThanFive');
+
+  // Combine filters
+  var evenAndGreaterThanFive = numbers
+      .where((n) => n % 2 == 0)
+      .where((n) => n > 5)
+      .toList();
+
+  var evenOrGreaterThanEight = numbers
+      .where((n) => n % 2 == 0 || n > 8)
+      .toList();
 }
