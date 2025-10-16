@@ -1,16 +1,19 @@
-// The Solution:Higher order functions are elegant.
+void main() {
+  var prices = [10.0, 25.5, 30.0, 15.75];
 
-void modernWay() {
-  var numbers = [1, 2, 3, 4, 5];
+  // Add 20 % vat to each prices.
+  var priceWithVat = prices.map((price) => price * 1.20).toList();
+  print(priceWithVat);
 
-  // Task: Double all numbers.
-  var doubled = numbers.map((n) => n * 2).toList();
-  print(doubled);
+  //Format as currency
+  var formatted = prices
+      .map((price) => 'E${price.toStringAsFixed(2)}')
+      .toList();
 
-  var evens = numbers.where((n) => n % 2 == 0).toList();
-  print(evens);
-
-  // Task: Sum all numbers.
-  var sum = numbers.reduce((total, n) => total + n);
-  print(sum);
+  // Multiple Transformation.
+  var finalPrices = prices
+      .map((price) => price * 1.2)
+      .map((price) => price.round())
+      .toList();
+  print(finalPrices);
 }
