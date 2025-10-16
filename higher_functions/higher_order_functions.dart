@@ -1,19 +1,36 @@
+// Complex Transformations.
+class Product {
+  final String name;
+  final double price;
+  final bool inStock;
+
+  Product(this.name, this.price, this.inStock);
+}
+
+class ProductDisplay {
+  final String displayName;
+  final String priceTag;
+  final String availaility;
+
+  ProductDisplay(this.displayName, this.priceTag, this.availaility);
+  @override
+  String toString() => '$displayName -$priceTag ($availaility)';
+}
+
 void main() {
-  var prices = [10.0, 25.5, 30.0, 15.75];
+  var products = [
+    Product('Laptop', 899.99, true),
+    Product('Mouse', 25.50, true),
+  ];
 
-  // Add 20 % vat to each prices.
-  var priceWithVat = prices.map((price) => price * 1.20).toList();
-  print(priceWithVat);
+  // Transform Products into display objects.
+  var displayProducts = products.map((product) {
+    return ProductDisplay(
+      product.name,
+      'E${product.price.toStringAsFixed(2)}',
+      product.inStock ? 'Available' : 'Out of Stock',
+    );
+  }).toList();
 
-  //Format as currency
-  var formatted = prices
-      .map((price) => 'E${price.toStringAsFixed(2)}')
-      .toList();
-
-  // Multiple Transformation.
-  var finalPrices = prices
-      .map((price) => price * 1.2)
-      .map((price) => price.round())
-      .toList();
-  print(finalPrices);
+  displayProducts.forEach(print);
 }
