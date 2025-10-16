@@ -1,27 +1,16 @@
-// Traditional approach. We have lots of code for the simple task.
+// The Solution:Higher order functions are elegant.
 
-void traditionalWay() {
+void modernWay() {
   var numbers = [1, 2, 3, 4, 5];
 
-  // Task : Double all the numbers.
-  var doubled = <int>[];
-  for (var num in numbers) {
-    doubled.add(num * 2);
-  }
+  // Task: Double all numbers.
+  var doubled = numbers.map((n) => n * 2).toList();
   print(doubled);
 
-  // Task: Get only Even Numbers.
-  var evens = <int>[];
-  for (var num in numbers) {
-    if (num % 2 == 0) {
-      evens.add(num);
-    }
-  }
+  var evens = numbers.where((n) => n % 2 == 0).toList();
+  print(evens);
 
-  // Task: Sum all Numbers.
-  var sum = 0;
-  for (var num in numbers) {
-    sum += num;
-  }
+  // Task: Sum all numbers.
+  var sum = numbers.reduce((total, n) => total + n);
   print(sum);
 }
