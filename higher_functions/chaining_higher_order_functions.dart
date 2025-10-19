@@ -1,30 +1,34 @@
-class Person {
-  final String name;
-  final int age;
-  final String city;
-  final double salary;
-  Person(this.name, this.age, this.city, this.salary);
+// Method Cascade with Higher order functions.
+class DataProcessor {
+  List<int> data = [];
 
-  @override
-  String toString() => '$name ($age) from $city: \$$salary';
+  void loadData(List<int> newData) {
+    data = newData;
+  }
+
+  void processData() {
+    data = data.map((n) => n * 2).toList();
+  }
+
+  void filterData() {
+    data = data.where((n) => n > 10).toList();
+  }
+
+  void sortData() {
+    data.sort();
+  }
+
+  void printData() {
+    print(data);
+  }
 }
 
 void main() {
-  var people = [
-    Person('Raj', 24, 'Nepal', 45000),
-    Person('Shruti', 24, 'Nepal', 200000),
-  ];
-  // Get names of People in Nepal over 20 earning more than 20,000 sorted by salary.
-  // ...existing code...
-  // Get names of People in London over 20 earning more than 20,000 sorted by salary.
-  var result =
-      (people
-              .where((p) => p.city == 'London')
-              .where((p) => p.age > 20)
-              .where((p) => p.salary > 20000)
-              .toList()
-            ..sort((a, b) => b.salary.compareTo(a.salary)))
-          .map((p) => p.name)
-          .toList();
-  // ...existing code...
+  // Using cascades with higher order function methods.
+  var processor = DataProcessor()
+    ..loadData([1, 2, 3, 4, 5, 6, 7, 8])
+    ..processData()
+    ..filterData()
+    ..sortData()
+    ..printData();
 }
